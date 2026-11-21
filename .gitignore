@@ -1,0 +1,40 @@
+# Measurement output. Data belongs to whoever took it, not to the repository:
+# a CSV here is somebody's device, and a figure is a claim about it.
+results/
+*.csv
+# A blanket *.png catches saved figures wherever they land, so the files the
+# package actually ships have to be let back in by name -- pyproject lists
+# resources/*.png as package data, and an icon that git refuses to track is
+# an icon that is missing from every install made from a clone.
+*.png
+!docs/*.png
+!b1500_studio/resources/*.png
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Anything deliberately kept out of the public tree
+private/
+*.key
+.env
+
+# Saved Claude Code conversations. These carry local paths, an email address
+# and working notes; they are a record of how the code was written, not part
+# of the code.
+chat_export.md
+*.jsonl

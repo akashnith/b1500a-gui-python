@@ -1,0 +1,60 @@
+name: CI
+
+# Runs against the simulated device, which is the point of having one: a
+# pull request is checked the same way a bench is, minus the instrument.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Python ${{ matrix.python }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.9", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+
+      # PySide6 needs these to load at all on a headless runner, even under
+      # the offscreen platform plugin.
+      - name: Qt runtime libraries (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libgl1 libxkbcommon-x11-0 \
+            libdbus-1-3 libxcb-cursor0 libxcb-icccm4 libxcb-image0 \
+            libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 \
+            libxcb-shape0 libxcb-xinerama0
+
+      - name: Install
+        run: pip install -e ".[all]"
+
+      - name: Test
+        env:
+          QT_QPA_PLATFORM: offscreen
+        run: python -m pytest -q
+
+      # The catalogue has to be reachable from a cold start, not just from
+      # inside the test session.
+      - name: Smoke the command line
+        env:
+          # Keep the runner's home clean: auto-save would otherwise write
+          # into it, and a CI job should not leave measurement folders behind.
+          B1500_STUDIO_DATA: ${{ runner.temp }}/b1500-data
+        run: |
+          python -m b1500_studio list
+          python -m b1500_studio smu list
+          python -m b1500_studio smu protocol iv --set sweep_step_v=0.1 --set step_dwell_s=0
+          python -m b1500_studio run synapse --demo
