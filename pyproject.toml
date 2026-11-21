@@ -7,7 +7,7 @@ name = "b1500-studio"
 version = "1.1.0"
 description = "Keysight B1500A measurement suite: SMU DC I-V, MFCMU capacitance and B1530A WGFMU fast-pulse neuromorphic protocols"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = { file = "LICENSE" }
 authors = [{ name = "Akash Prajapati" }]
 keywords = [

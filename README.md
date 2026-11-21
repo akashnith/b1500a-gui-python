@@ -2,7 +2,7 @@
 
 Python package for the **Keysight B1500A Semiconductor Device Analyzer** over **GPIB**, covering the DC, capacitance and fast-pulse measurements used to characterize memristive, ferroelectric and other neuromorphic devices (synaptic plasticity, neuron-like spiking, forming, retention, polarization switching). GUI, command line and importable library, from one catalogue of protocols.
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white) ![PySide6](https://img.shields.io/badge/GUI-PySide6%20%2F%20Qt%206-41CD52?logo=qt&logoColor=white) ![PyVISA](https://img.shields.io/badge/VISA-PyVISA-0A7BBB) ![NumPy](https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=white) ![Matplotlib](https://img.shields.io/badge/plots-Matplotlib-11557C) ![pytest](https://img.shields.io/badge/tests-577%20passing-0A9EDC?logo=pytest&logoColor=white) ![license](https://img.shields.io/badge/license-MIT-green) ![interface](https://img.shields.io/badge/interface-GPIB-orange) ![protocols](https://img.shields.io/badge/protocols-42-blueviolet)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white) ![PySide6](https://img.shields.io/badge/GUI-PySide6%20%2F%20Qt%206-41CD52?logo=qt&logoColor=white) ![PyVISA](https://img.shields.io/badge/VISA-PyVISA-0A7BBB) ![NumPy](https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=white) ![Matplotlib](https://img.shields.io/badge/plots-Matplotlib-11557C) ![pytest](https://img.shields.io/badge/tests-577%20passing-0A9EDC?logo=pytest&logoColor=white) ![license](https://img.shields.io/badge/license-MIT-green) ![interface](https://img.shields.io/badge/interface-GPIB-orange) ![protocols](https://img.shields.io/badge/protocols-42-blueviolet)
 
 ![B1500 Studio, SMU DC I-V page, running against the simulator](docs/screenshot_gui_python.png)
 <p align="center"><em>SMU DC page - a bipolar resistive-switching loop measured
@@ -65,7 +65,7 @@ the ON/OFF ratio is read off the finished loop.</em></p>
 
 **To run against the simulator - any platform**
 
-- Python 3.9+
+- Python 3.10+
 - `numpy` and `matplotlib`, installed automatically
 - `PySide6` for the GUI; the CLI and the library need neither it nor VISA
 
@@ -192,7 +192,7 @@ b1500a-gui-python/
 ├── examples/                   # a runnable measurement script
 ├── scripts/                    # .bat and .sh launchers
 ├── docs/                       # screenshot, simulator findings
-└── .github/workflows/ci.yml    # 3 platforms x Python 3.9 / 3.12
+└── .github/workflows/ci.yml    # 3 platforms x Python 3.10 / 3.12
 ```
 
 Only `instruments/` opens a session, and even there VISA and the DLL are imported on first use. Everything else is importable and testable on a machine with neither - which is why the whole catalogue is exercised before it is pointed at a device.
